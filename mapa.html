@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<title>Prueba Google Maps</title>
+		<style>
+			#map {
+				height: 400px;
+        		width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>Mapa</h3>
+		<div id="map"></div>
+
+		<script>
+   		function initMap() {	
+   			var directionsService = new google.maps.DirectionsService;
+        	var directionsDisplay = new google.maps.DirectionsRenderer;
+        	/* COORDENADAS DE RUTA */
+        	var waypts = [
+        			  { location: { lat: -12.048298, lng: -77.062404 }, stopover: true }, 
+        			  { location: { lat: -12.048190, lng: -77.061247 }, stopover: true }, 
+        			  { location: { lat: -12.048012, lng: -77.059695 }, stopover: true },
+        			  { location: { lat: -12.047871, lng: -77.058189 }, stopover: true }, 
+        			  { location: { lat: -12.047752, lng: -77.057222 }, stopover: true }, 
+        			  { location: { lat: -12.047485, lng: -77.054571 }, stopover: true },
+        			  { location: { lat: -12.047255, lng: -77.052196 }, stopover: true },
+        			  { location: { lat: -12.047196, lng: -77.051424 }, stopover: true }, 
+        			  { location: { lat: -12.047090, lng: -77.050483 }, stopover: true }, 
+        			  { location: { lat: -12.046956, lng: -77.049402 }, stopover: true },
+        			  { location: { lat: -12.046188, lng: -77.049440 }, stopover: true },
+        			  { location: { lat: -12.044037, lng: -77.047058 }, stopover: true },
+        			  { location: { lat: -12.043679, lng: -77.043540 }, stopover: true },
+        			  { location: { lat: -12.041507, lng: -77.043068 }, stopover: true },
+        			  { location: { lat: -12.038044, lng: -77.043379 }, stopover: true },
+        			  { location: { lat: -12.034779, lng: -77.043703 }, stopover: true },
+        			  { location: { lat: -12.032656, lng: -77.043886 }, stopover: true },
+        			  { location: { lat: -12.030849, lng: -77.044043 }, stopover: true },
+        			  { location: { lat: -12.029896, lng: -77.044097 }, stopover: true },
+        			  { location: { lat: -12.028868, lng: -77.044192 }, stopover: true },
+        			  { location: { lat: -12.027421, lng: -77.045053 }, stopover: true },
+        			  { location: { lat: -12.026728, lng: -77.045811 }, stopover: true }, 
+        			  { location: { lat: -12.025952, lng: -77.046686 }, stopover: true }
+        	]; //Maximo 23 waypts
+        	var data = {
+            		origin: { lat: waypts[0].location.lat, lng: waypts[0].location.lng },
+            		destination: { lat: waypts[0].location.lat, lng: waypts[0].location.lng },
+            		waypoints: waypts,
+            		travelMode: google.maps.TravelMode.DRIVING  //Modo transporte - WALKING
+        	};
+        	var map = new google.maps.Map(document.getElementById('map'), {
+            	zoom: 6,
+            	center: { lat: waypts[0].location.lat, lng: waypts[0].location.lng }
+        	});
+        	directionsDisplay.setMap(map);
+
+        	directionsService.route(data, function (response, status) {
+            	if (status === google.maps.DirectionsStatus.OK) {
+                	directionsDisplay.setDirections(response);
+            	} else {
+                	window.alert('Error: ' + status);
+            	}
+        	});
+        }
+    	</script>
+
+		<script async defer
+    		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjABN3BGB3G9NjASPrMzYNKKku6Uq33AQ&callback=initMap">
+    	</script>
+	</body>
+</html>
